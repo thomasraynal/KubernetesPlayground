@@ -11,8 +11,7 @@ namespace KubernetesPlayground.Api.Controllers
     {
         public IActionResult Index()
         {
-            return Ok();
+            return Ok("This is the api root. K8s ingress mount the api on /api and check this for service health.");
         }
-
     }
 }

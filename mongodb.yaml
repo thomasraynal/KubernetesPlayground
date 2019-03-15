@@ -5,9 +5,11 @@ metadata:
 spec:
   volumes:
   - name: mongodb-data
-    gcePersistentDisk:
-      pdName: mongodb
-      fsType: ext4
+    persistentVolumeClaim:
+      claimName: mongodb-pvc
+    # gcePersistentDisk:
+    #   pdName: mongodb
+    #   fsType: ext4
   containers:
   - image: mongo
     name: mongodb

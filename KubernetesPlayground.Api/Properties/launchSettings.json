@@ -12,9 +12,11 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "api/items",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "MONGO_URI": "mongodb://127.0.0.1:27017",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MONGO_DATABASE": "test"
       }
     },
     "KubernetesPlayground.Api": {
@@ -22,14 +24,11 @@
       "launchBrowser": true,
       "launchUrl": "api/values",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "MONGO_URI": "mongodb://127.0.0.1:27017",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "MONGO_DATABASE": "test"
       },
       "applicationUrl": "http://localhost:5000"
-    },
-    "Docker": {
-      "commandName": "Docker",
-      "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/values"
     }
   }
 }

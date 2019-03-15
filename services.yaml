@@ -11,7 +11,8 @@ spec:
   - name: https
     port: 443
   selector:
-    app: test-app
+    app: kubernetes-playground
+    component: test-app
 ---
 apiVersion: v1
 kind: Service
@@ -25,4 +26,17 @@ spec:
   - name: https
     port: 443
   selector:
-    app: test-api
+    app: kubernetes-playground
+    component: test-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+spec:
+  ports:
+  - name: c1
+    port: 27017
+  selector:
+    app: kubernetes-playground
+    component: mongodb

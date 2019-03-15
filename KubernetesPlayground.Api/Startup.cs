@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KubernetesPlayground.Api.Service;
 using KubernetesPlayground.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +26,14 @@ namespace KubernetesPlayground.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var MONGO_URI = Environment.GetEnvironmentVariable("MONGO_URI");
+            var MONGO_DATABASE = Environment.GetEnvironmentVariable("MONGO_DATABASE");
+
+            var mongoRepository = new MongoRepository(MONGO_URI, MONGO_DATABASE);
+
+            mongoRepository.SeedIfNotCreated().Wait();
+
+            services.AddSingleton<ITestRepository>(mongoRepository);
             services.AddHealthChecks();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -32,6 +32,7 @@ namespace KubernetesPlayground
             });
 
             services.AddHealthChecks();
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -51,6 +52,14 @@ namespace KubernetesPlayground
             app.UseCookiePolicy();
 
             app.UseHealthChecks(Constants.HealthCheckUrl);
+
+            app.UseCors(
+                options =>
+                {
+                    options.AllowAnyHeader();
+                    options.AllowAnyMethod();
+                    options.AllowAnyOrigin();
+                });
 
             app.UseMvc(routes =>
             {
