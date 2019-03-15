@@ -1,0 +1,1 @@
+gcloud compute disks create --zone=europe-west1-b --size=1GiB mongodb

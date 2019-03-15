@@ -1,0 +1,16 @@
+version: '3.4'
+
+services:
+  test:
+    image: thomasraynal/kubernetesplayground:v1
+    build: 
+     context: .
+     dockerfile: ./KubernetesPlayground/Dockerfile
+  test-api:
+    image: thomasraynal/kubernetesplayground-api:v1
+    build: 
+     context: .
+     dockerfile: ./KubernetesPlayground.Api/Dockerfile
+
+
+

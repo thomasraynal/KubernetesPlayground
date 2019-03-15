@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: basic-ingress
+spec:
+  rules:
+    - http:
+        paths:
+        - path: /api/*
+          backend:
+            serviceName: test-api
+            servicePort: 80
+        - path: /*
+          backend:
+            serviceName: test-app
+            servicePort: 80
+
+
+
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: basic-ingress
+# spec:
+#   tls:
+#   - secretName: test-app-secret
+#   - secretName: test-api-secret
+#   rules:
+#   - host: test-api
+#     http:
+#       paths:
+#       - path: /api/*
+#         backend:
+#           serviceName: test-api
+#           servicePort: 80
+#   - host: test-app
+#     http:
+#       paths:
+#       - path: /
+#         backend:
+#           serviceName: test-app
+#           servicePort: 80

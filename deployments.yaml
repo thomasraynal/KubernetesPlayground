@@ -1,0 +1,90 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: test-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-app
+    spec:
+      containers:
+      - name: test-app
+        image: thomasraynal/kubernetesplayground:v1
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 80
+        #   initialDelaySeconds: 15
+        #   timeoutSeconds: 5  
+        #   periodSeconds: 10
+        # ports:
+        #   - containerPort: 80
+        env:
+          - name: ASPNETCORE_URLS
+            value: http://0.0.0.0:80
+          - name: apiUrl
+            value : https://test-api/api/values
+            # valueFrom:
+            #  configMapKeyRef:
+            #    name: config
+            #    key: apiUrl
+            # valueFrom:
+            #     configMapKeyRef:
+            #       name: test-configmap
+            #       key: apiUrl
+        imagePullPolicy : Always
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: test-api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-api
+    spec:
+      containers:
+      - name: test-api
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health
+        #     port: 80
+        #   initialDelaySeconds: 15
+        #   timeoutSeconds: 5
+        #   periodSeconds: 10
+        image: thomasraynal/kubernetesplayground-api:v1
+        # ports:
+        #   - containerPort: 80
+        env:
+          - name: ASPNETCORE_URLS
+            value: http://0.0.0.0:80
+        imagePullPolicy : Always
+
+# ---
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: config
+# data:
+#   apiUrl: http://$(TEST_API_SERVICE_HOST):$(TEST_API_SERVICE_PORT)/api/values
+# ---
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: test-configmap
+# data:
+#   apiUrl: Development
+# ---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: test-tls
+# type: kubernetes.io/tls
+# data:
+#   tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURDVENDQWZHZ0F3SUJBZ0lVZVNrWEprVzhWNUNDbUZacG1JdjBlRHVncWU4d0RRWUpLb1pJaHZjTkFRRUwKQlFBd0ZERVNNQkFHQTFVRUF3d0piRzlqWVd4b2IzTjBNQjRYRFRFNU1ESXlNREV6TWpnME1sb1hEVEU1TURNeQpNakV6TWpnME1sb3dGREVTTUJBR0ExVUVBd3dKYkc5allXeG9iM04wTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGCkFBT0NBUThBTUlJQkNnS0NBUUVBMDRQSDNPSTVJeUl6NDkxVVpVTk9sbS9yRzZmc2ZhcFlrZ0U0V0t1aDZ3YjQKWUVTdUdzR2EvZVZ5a3BsZGR1eFl3VWFRNnl6RnJPVzFLdVhESkt4OEQrQmZVSlpCTGh0UUVQQU1EYjNYa2orYgpmYmsyZlYzbmROUmhoS1NWUWVIMEFxRUIwSEt0eDA0b2NUdG1WVFJaVlFTQWJSbHV1eTV4MXhYSGNoR3pEZ0Y2CmhseHM3VVNzZkJBd2cxd01pT25xN1hDZGZkS21VNnRYVTcrWVV5OWtoNFdLYVBqcUhkRTdyVytwdTF5NEdHaXoKRDZ0UzVpWTJvNi84aFp3UnJ4bDlKZ05aaC9CSVF1a2djZjVJbGowN3ZKQmhaU1N4V3VDdFlwRjlMeXg2NnlDcwp5M0EvTzUyNkxRdGJRQTZRZmpQcEx5dTNvVWltYUVVMENmalArTEszWFFJREFRQUJvMU13VVRBZEJnTlZIUTRFCkZnUVVpcDYyY212Z1RheW8vT0lwMzkyOW5vTzl0QVl3SHdZRFZSMGpCQmd3Rm9BVWlwNjJjbXZnVGF5by9PSXAKMzkyOW5vTzl0QVl3RHdZRFZSMFRBUUgvQkFVd0F3RUIvekFOQmdrcWhraUc5dzBCQVFzRkFBT0NBUUVBcjNoRgpOWXVVTEN2aXZtOUlPSkFBLzBWbXpid0Nod0dFT0NwYVhmV21rL1REUmtzd2xUMk1wL3hSU2pYUjdBRlRoaVFJCjZ4ZVpJbDRxNGhrT1BMeXhlaW9xMVUzUXQ2TzRZQmxraVpzMDJOSHE4N20vTHNSb2tkVXU0a0NJVHFDWEFQNVAKVTJaY0xmcDM5R0h6M2JKSUY3bVNseHNSRmN1Q0hmZEEvL3M1ZDhSODBqMUhxLzAyaHNBV0VCczcvWmhmTThqZgp4akErTUFMZnNFbUxUVFdhK1lzZCthRi9lOVdNQjkwMktNZlFpSnJGODVJQTFTT1dtWmZQYzhmWk5JY3VGclJMCmdLN0NGd2JsY0huc1U1K3pGVjlqZXhVMHQ0ZWNQUzBGc3FyZWl0em9TSUx4bE4zb0NmMmk1b1JRci9nMmNXR3YKcmE0RTFad0FTZzhnWkRDZ0R3PT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+#   tls.key: LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2Z0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktnd2dnU2tBZ0VBQW9JQkFRRFRnOGZjNGpraklqUGoKM1ZSbFEwNldiK3NicCt4OXFsaVNBVGhZcTZIckJ2aGdSSzRhd1pyOTVYS1NtVjEyN0ZqQlJwRHJMTVdzNWJVcQo1Y01rckh3UDRGOVFsa0V1RzFBUThBd052ZGVTUDV0OXVUWjlYZWQwMUdHRXBKVkI0ZlFDb1FIUWNxM0hUaWh4Ck8yWlZORmxWQklCdEdXNjdMbkhYRmNkeUViTU9BWHFHWEd6dFJLeDhFRENEWEF5STZlcnRjSjE5MHFaVHExZFQKdjVoVEwyU0hoWXBvK09vZDBUdXRiNm03WExnWWFMTVBxMUxtSmphanIveUZuQkd2R1gwbUExbUg4RWhDNlNCeAova2lXUFR1OGtHRmxKTEZhNEsxaWtYMHZMSHJySUt6TGNEODduYm90QzF0QURwQitNK2t2SzdlaFNLWm9SVFFKCitNLzRzcmRkQWdNQkFBRUNnZ0VCQUs4MmZneXk5YVB1QkZBaEczVmJBVEhMZWxZSmovVTFkSE5XUVdmcW5aSEUKejJGbjQxWFV4V0RIZmxhRVp4RkpqZWhsWFUwRFpLanFERjZCd0ZxVDY1MTNQMTNSYWlNWWl3WE01QjlLQU5acwpqSkRrS1loR2pxS1FBRXhSemphcVIya2FHUmVrdCtIZkU4OWc1azkwc3YrallBT0FTdU1TQVVtc0IvQ3RTc2N3CjNydGVSOEh3Tm9XRFVzcEFjaWdVd1BXVTZQZ2wxOFhmWVEva2lvMzJZK09ZTDN3UnNHTXk5VTlRVXhJY05YN1AKbmFJZnN4amlrRnRNSTVDMXpCRDNDbzZOeGM5eVEvM2tPakl3VER6OUlaUEwwNCs4QVdNdUp0QmE4cDg5V2Rqdwphd1d6QlBGMWpZSDhGNnZLL0puaC9ETXUrNXdQbHRsUUp2Zno5N0diVzMwQ2dZRUE3bjFCTU1rWko0c0hJM3VrCk5GbXVuRFRkNzdjT1k3NlRGaTBlQU01Q2FKT1F1TG8xc29vcDh0QkV3eit0ODE5bmZkWUJtTlVSY3A5dXJZY20KRU5xWENDUXluVzJZWDhuaEN1dC8wdGgrcGNWaTQxQXB5Qit1ckQvY3dEUW5DRXM1eVMxZGlvRkFONURBamNtQgplUUF4NVhaL3F4elk3UDBodUZkZTQvRjFmYjhDZ1lFQTR3dUFka21CNjFnL3dRaEpvSWVXSkY2Vk9QdUl0VmNhCm9HK1JXckpBWEJhSHNVZi9MQzRQbmhKaVBvL2VVa3FjQ2hXV2UxZlI2dVdJQVFtNWZocHpEdmhmbGFSb2hNem8KOFVaN3dFK1IxNm1MWVpmTGdwNzVEUFIzaHI4azJRN2lmOG9wcjdHOC85TFBYZENNVTNTRzVhVWs4UFd3RUNSTgpZM2dLS3JNSGllTUNnWUVBM3gxUFg5VERNN3RkY2xTNXlrQWNtd2JhbXVrbkRTbTljWUhFRC96bkkrN3A5ZWcvClZFanQ5YnZpbU1kNmRiVkxuTzRaa0dIRmNQYTNGS0RiZStrRVl4bDZRTTNIUDlZZU01a2VmS01OMlFoUSsxaUQKdmpYbHRFQUt4Y1lFdmoyaVVoT2U3M1Q4SHYvTkpOamZ4OVBtMmtXQ0t4TlIzbVR5cHdNV1F5b2lRUUVDZ1lBagpJcjZJajZ1WlhoalBxSmFzVHc4L0padjJLNGJtZVVwWGxheHEycmIzQ1UyS2M5ZmJZRzF1U3U0RlBJSnRQYnFVCkhPOGl1MTV5K1g1b21yYW4relBmRnpURGxhUFBHVjdiSjhzeTRaMXlRSHlmWjd4SXhJMUtJZkwxV1ZNOGUvODEKUTNYY0NLZDA5NHk3dWZCZFllVVdXTTQwcy9EQkxyMERMYXAxSFN1SGZRS0JnQ1ZjVlFBRzNxVTRnZEEwNjRkdworbkZ5ZmJ4NnlVSFlyRy85cFkxYmJhSHlKMnF5Nkc3MlM5TnA5M0UwOHEvT2FJbHZiaEpQcXVFZzgvWVJZMkQ3CmQxendTT1lCVFNmamVRUitVZWhsL09PRVkraUJQRVFya1FHVXdybm9WVG41YlVkTVIyWE9WR3V6cVZxaytTYjkKLy80cnQ2ZHE5MWJwVHpDSlo2OSsxNkxCCi0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K

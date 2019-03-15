@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KubernetesPlayground", "KubernetesPlayground\KubernetesPlayground.csproj", "{364EAA44-BC04-43B3-AEF4-1576510E7C4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KubernetesPlayground.Api", "KubernetesPlayground.Api\KubernetesPlayground.Api.csproj", "{96965CFA-2EB1-4137-A4D0-19632EA50433}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KubernetesPlayground.Shared", "KubernetesPlayground.Shared\KubernetesPlayground.Shared.csproj", "{80F7E62D-57AE-496F-9FF1-560D5F6AA3D3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{364EAA44-BC04-43B3-AEF4-1576510E7C4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{364EAA44-BC04-43B3-AEF4-1576510E7C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{364EAA44-BC04-43B3-AEF4-1576510E7C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{364EAA44-BC04-43B3-AEF4-1576510E7C4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96965CFA-2EB1-4137-A4D0-19632EA50433}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96965CFA-2EB1-4137-A4D0-19632EA50433}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96965CFA-2EB1-4137-A4D0-19632EA50433}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96965CFA-2EB1-4137-A4D0-19632EA50433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80F7E62D-57AE-496F-9FF1-560D5F6AA3D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80F7E62D-57AE-496F-9FF1-560D5F6AA3D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80F7E62D-57AE-496F-9FF1-560D5F6AA3D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80F7E62D-57AE-496F-9FF1-560D5F6AA3D3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA62C432-BAB6-4947-8970-54ECA74E3A32}
+	EndGlobalSection
+EndGlobal
