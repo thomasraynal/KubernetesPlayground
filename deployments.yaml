@@ -57,6 +57,18 @@ spec:
               name: config
         imagePullPolicy : Always
 ---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kubernetes-server-proxy
+spec:
+  containers:
+  - name: main
+    image: tutum/curl
+    command: ["sleep", "9999999"]
+  - name: gateway
+    image: luksa/kubectl-proxy:1.8.0
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:

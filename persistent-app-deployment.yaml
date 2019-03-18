@@ -1,0 +1,45 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: persistent-app
+spec:
+  serviceName: persistent-app-service
+  replicas: 1
+  template:
+    metadata: 
+      labels:
+        app: persistent-app
+    spec:
+      containers:
+      - name: persistent-app
+        image: thomasraynal/kubernetesplaygroundperistentapp:v1
+        volumeMounts:
+        - name: files
+          mountPath: /var/files
+  volumeClaimTemplates:
+  - metadata:
+      name: files
+    spec:
+      resources:
+        requests:
+          storage: 1Mi
+      accessModes:
+      - ReadWriteOnce
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: persistent-app-service
+spec:
+  clusterIP: None
+  selector: 
+    app: persistent-app
+  ports:
+  - name: http
+    port: 80
+  - name: https
+    port: 443
+  selector:
+    app: persistent-app
+    component: persistent-app-service   
+      

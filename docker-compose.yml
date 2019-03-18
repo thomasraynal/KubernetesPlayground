@@ -11,6 +11,11 @@ services:
     build: 
      context: .
      dockerfile: ./KubernetesPlayground.Api/Dockerfile
+  persistent-app:
+    image: thomasraynal/kubernetesplaygroundperistentapp:v1
+    build: 
+     context: .
+     dockerfile: ./KubernetesPlayground.PersistentApp/Dockerfile
 
 
 
